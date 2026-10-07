@@ -37,14 +37,13 @@ runs:
         if [[ "${VERSION}" == "latest" ]]; then
           export version="$(gh release list --repo "${REPOSITORY}" --exclude-drafts --exclude-pre-releases --json "isLatest,tagName" | jq -r '.[] | select(.isLatest == true) | .tagName')"
         else
-          if [[ "$(gh release list --repo "${REPOSITORY}" --exclude-pre-releases --json tagName | jq -r --arg tag "${VERSION}" '.[].tagName | select(. == $tag)')" != "${VERSION}" ]]; then
+          if ! version="$(gh release view "${VERSION}" --repo "${REPOSITORY}" --json tagName --jq .tagName)"; then
             echo "Invalid version: ${VERSION}"
             echo "Please check available versions on GitHub: https://github.com/${REPOSITORY}/releases"
             echo "or use the command: gh release list --repo ${REPOSITORY} --exclude-pre-releases"
             exit 1
-          else
-            export version="${VERSION}"
           fi
+          export version
         fi
 
         mkdir --parents "${GITHUB_WORKSPACE}/.crane"

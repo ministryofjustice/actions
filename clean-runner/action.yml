@@ -111,138 +111,136 @@ runs:
           exit 1
         fi
 
-        usageBefore=$(df --human-readable /)
-        export usageBefore
+        availableBefore=$(df --output=avail --block-size=1 / | tail --lines=1)
 
-        if [[ "${REMOVE_OPT_GOOGLE}" ]]; then
+        if [[ "${REMOVE_OPT_GOOGLE}" == "true" ]]; then
           echo "Removing /opt/google"
           sudo rm --force --recursive /opt/google
         else
           echo "Not removing /opt/google, to remove set 'remove_opt_google: true'"
         fi
 
-        if [[ "${REMOVE_OPT_HOSTEDTOOLCACHE}" ]]; then
+        if [[ "${REMOVE_OPT_HOSTEDTOOLCACHE}" == "true" ]]; then
           echo "Removing /opt/hostedtoolcache"
           sudo rm --force --recursive /opt/hostedtoolcache
         else
           echo "Not removing /opt/hostedtoolcache, to remove set 'remove_opt_hostedtoolcache: true'"
         fi
 
-        if [[ "${REMOVE_OPT_MICROSOFT}" ]]; then
+        if [[ "${REMOVE_OPT_MICROSOFT}" == "true" ]]; then
           echo "Removing /opt/microsoft"
           sudo rm --force --recursive /opt/microsoft
         else
           echo "Not removing /opt/microsoft, to remove set 'remove_opt_microsoft: true'"
         fi
 
-        if [[ "${REMOVE_OPT_PIPX}" ]]; then
+        if [[ "${REMOVE_OPT_PIPX}" == "true" ]]; then
           echo "Removing /opt/pipx"
           sudo rm --force --recursive /opt/pipx
         else
           echo "Not removing /opt/pipx, to remove set 'remove_opt_pipx: true'"
         fi
 
-        if [[ "${REMOVE_USR_LIB_FIREFOX}" ]]; then
+        if [[ "${REMOVE_USR_LIB_FIREFOX}" == "true" ]]; then
           echo "Removing /usr/lib/firefox"
           sudo rm --force --recursive /usr/lib/firefox
         else
           echo "Not removing /usr/lib/firefox, to remove set 'remove_usr_lib_firefox: true'"
         fi
 
-        if [[ "${REMOVE_USR_LIB_GOOGLE_CLOUD_SDK}" ]]; then
+        if [[ "${REMOVE_USR_LIB_GOOGLE_CLOUD_SDK}" == "true" ]]; then
           echo "Removing /usr/lib/google-cloud-sdk"
           sudo rm --force --recursive /usr/lib/google-cloud-sdk
         else
           echo "Not removing /usr/lib/google-cloud-sdk, to remove set 'remove_usr_lib_google_cloud_sdk: true'"
         fi
 
-        if [[ "${REMOVE_USR_LIB_LLVM_16}" ]]; then
+        if [[ "${REMOVE_USR_LIB_LLVM_16}" == "true" ]]; then
           echo "Removing /usr/lib/llvm-16"
           sudo rm --force --recursive /usr/lib/llvm-16
         else
           echo "Not removing /usr/lib/llvm-16, to remove set 'remove_usr_lib_llvm_16: true'"
         fi
 
-        if [[ "${REMOVE_USR_LIB_LLVM_17}" ]]; then
+        if [[ "${REMOVE_USR_LIB_LLVM_17}" == "true" ]]; then
           echo "Removing /usr/lib/llvm-17"
           sudo rm --force --recursive /usr/lib/llvm-17
         else
           echo "Not removing /usr/lib/llvm-17, to remove set 'remove_usr_lib_llvm_17: true'"
         fi
 
-        if [[ "${REMOVE_USR_LIB_LLVM_18}" ]]; then
+        if [[ "${REMOVE_USR_LIB_LLVM_18}" == "true" ]]; then
           echo "Removing /usr/lib/llvm-18"
           sudo rm --force --recursive /usr/lib/llvm-18
         else
           echo "Not removing /usr/lib/llvm-18, to remove set 'remove_usr_lib_llvm_18: true'"
         fi
 
-        if [[ "${REMOVE_USR_LOCAL_JULIA}" ]]; then
+        if [[ "${REMOVE_USR_LOCAL_JULIA}" == "true" ]]; then
           echo "Removing /usr/local/julia*"
           sudo rm --force --recursive /usr/local/julia*
         else
           echo "Not removing /usr/local/julia*, to remove set 'remove_usr_local_julia: true'"
         fi
 
-        if [[ "${REMOVE_USR_LOCAL_LIB_ANDROID}" ]]; then
+        if [[ "${REMOVE_USR_LOCAL_LIB_ANDROID}" == "true" ]]; then
           echo "Removing /usr/local/lib/android"
           sudo rm --force --recursive /usr/local/lib/android
         else
           echo "Not removing /usr/local/lib/android, to remove set 'remove_usr_local_lib_android: true'"
         fi
 
-        if [[ "${REMOVE_USR_LOCAL_LIB_NODE_MODULES}" ]]; then
+        if [[ "${REMOVE_USR_LOCAL_LIB_NODE_MODULES}" == "true" ]]; then
           echo "Removing /usr/local/lib/node_modules"
           sudo rm --force --recursive /usr/local/lib/node_modules
         else
           echo "Not removing /usr/local/lib/node_modules, to remove set 'remove_usr_local_lib_node_modules: true'"
         fi
 
-        if [[ "${REMOVE_USR_LOCAL_SHARE_CHROMIUM}" ]]; then
+        if [[ "${REMOVE_USR_LOCAL_SHARE_CHROMIUM}" == "true" ]]; then
           echo "Removing /usr/local/share/chromium"
           sudo rm --force --recursive /usr/local/share/chromium
         else
           echo "Not removing /usr/local/share/chromium, to remove set 'remove_usr_local_share_chromium: true'"
         fi
 
-        if [[ "${REMOVE_USR_LOCAL_SHARE_POWERSHELL}" ]]; then
+        if [[ "${REMOVE_USR_LOCAL_SHARE_POWERSHELL}" == "true" ]]; then
           echo "Removing /usr/local/share/powershell"
           sudo rm --force --recursive /usr/local/share/powershell
         else
           echo "Not removing /usr/local/share/powershell, to remove set 'remove_usr_local_share_powershell: true'"
         fi
 
-        if [[ "${REMOVE_USR_SHARE_DOTNET}" ]]; then
+        if [[ "${REMOVE_USR_SHARE_DOTNET}" == "true" ]]; then
           echo "Removing /usr/share/dotnet"
           sudo rm --force --recursive /usr/share/dotnet
         else
           echo "Not removing /usr/share/dotnet, to remove set 'remove_usr_share_dotnet: true'"
         fi
 
-        if [[ "${REMOVE_USR_SHARE_MINICONDA}" ]]; then
+        if [[ "${REMOVE_USR_SHARE_MINICONDA}" == "true" ]]; then
           echo "Removing /usr/share/miniconda"
           sudo rm --force --recursive /usr/share/miniconda
         else
           echo "Not removing /usr/share/miniconda, to remove set 'remove_usr_share_miniconda: true'"
         fi
 
-        if [[ "${REMOVE_USR_SHARE_SWIFT}" ]]; then
+        if [[ "${REMOVE_USR_SHARE_SWIFT}" == "true" ]]; then
           echo "Removing /usr/share/swift"
           sudo rm --force --recursive /usr/share/swift
         else
           echo "Not removing /usr/share/swift, to remove set 'remove_usr_share_swift: true'"
         fi
 
-        usageAfter=$(df --human-readable /)
-        export usageAfter
-
-        availableBefore=$(echo "${usageBefore}" | awk '{print $4}' | tail --lines=+2 | sed 's/G//')
-        availableAfter=$(echo "${usageAfter}" | awk '{print $4}' | tail --lines=+2 | sed 's/G//')
+        availableAfter=$(df --output=avail --block-size=1 / | tail --lines=1)
 
         totalFreed=$((availableAfter - availableBefore))
-        echo "Total freed space: ${totalFreed}GiB"
+        availableBeforeGiB=$(awk -v bytes="${availableBefore}" 'BEGIN { printf "%.1f", bytes / 1073741824 }')
+        availableAfterGiB=$(awk -v bytes="${availableAfter}" 'BEGIN { printf "%.1f", bytes / 1073741824 }')
+        totalFreedGiB=$(awk -v bytes="${totalFreed}" 'BEGIN { printf "%.1f", bytes / 1073741824 }')
+        echo "Total freed space: ${totalFreedGiB}GiB"
 
         echo "### Clean Runner Summary" >>"${GITHUB_STEP_SUMMARY}"
-        echo "Before cleanup: ${availableBefore}GiB" >>"${GITHUB_STEP_SUMMARY}"
-        echo "After cleanup: ${availableAfter}GiB" >>"${GITHUB_STEP_SUMMARY}"
-        echo "Total freed: ${totalFreed}GiB" >>"${GITHUB_STEP_SUMMARY}"
+        echo "Before cleanup: ${availableBeforeGiB}GiB" >>"${GITHUB_STEP_SUMMARY}"
+        echo "After cleanup: ${availableAfterGiB}GiB" >>"${GITHUB_STEP_SUMMARY}"
+        echo "Total freed: ${totalFreedGiB}GiB" >>"${GITHUB_STEP_SUMMARY}"
