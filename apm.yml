@@ -1,0 +1,9 @@
+---
+version: 1.0.0
+name: actions
+targets:
+  - copilot
+  - vscode
+dependencies:
+  apm:
+    - ministryofjustice/ai-toolkit/toolkits/universal#main
