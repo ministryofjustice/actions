@@ -1,0 +1,40 @@
+---
+name: Test - Setup Container Structure Test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - setup-container-structure-test/**
+
+permissions: {}
+
+jobs:
+  test:
+    name: Test (${{ matrix.version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        version:
+          - latest # default
+          - v1.19.3 # specific version
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Action
+        id: run_action
+        uses: $/setup-container-structure-test
+        with:
+          version: ${{ matrix.version }}
+
+      - name: Test container-structure-test command
+        id: test_container_structure_test_command
+        run: |
+          container-structure-test version

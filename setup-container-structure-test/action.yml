@@ -1,0 +1,61 @@
+---
+name: Set Up Container Structure Test
+description: This action installs Google's [Container Structure Test](https://github.com/GoogleContainerTools/container-structure-test)
+
+inputs:
+  github-token:
+    description: GitHub token for authentication
+    required: false
+    default: ${{ github.token }}
+  version:
+    description: Version of Container Structure Test to install
+    required: false
+    default: "latest"
+
+outputs: {}
+
+runs:
+  using: composite
+  steps:
+    - name: Install Container Structure Test
+      id: install_container_structure_test
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        REPOSITORY: GoogleContainerTools/container-structure-test
+        VERSION: ${{ inputs.version }}
+      run: | # zizmor: ignore[github-env] we need to the binary to the path
+        if [[ "$(uname --machine)" == "x86_64" ]]; then
+          export architecture="amd64"
+        elif [[ "$(uname --machine)" == "aarch64" ]]; then
+          export architecture="arm64"
+        else
+          echo "Unsupported architecture: $(uname --machine)"
+          exit 1
+        fi
+
+        if [[ "${VERSION}" == "latest" ]]; then
+          export version="$(gh release list --repo "${REPOSITORY}" --exclude-drafts --exclude-pre-releases --json "isLatest,tagName" | jq -r '.[] | select(.isLatest == true) | .tagName')"
+        else
+          if [[ "$(gh release list --repo "${REPOSITORY}" --exclude-pre-releases --json tagName | jq -r --arg tag "${VERSION}" '.[].tagName | select(. == $tag)')" != "${VERSION}" ]]; then
+            echo "Invalid version: ${VERSION}"
+            echo "Please check available versions on GitHub: https://github.com/${REPOSITORY}/releases"
+            echo "or use the command: gh release list --repo ${REPOSITORY} --exclude-pre-releases"
+            exit 1
+          else
+            export version="${VERSION}"
+          fi
+        fi
+
+        mkdir --parents "${GITHUB_WORKSPACE}/.container-structure-test"
+
+        gh release download \
+          --repo "${REPOSITORY}" \
+          "${version}" \
+          --pattern "container-structure-test-linux-${architecture}" \
+          --output "${GITHUB_WORKSPACE}/.container-structure-test/container-structure-test" \
+          --clobber
+
+        chmod +x "${GITHUB_WORKSPACE}/.container-structure-test/container-structure-test"
+
+        echo "${GITHUB_WORKSPACE}/.container-structure-test" >>"${GITHUB_PATH}"
