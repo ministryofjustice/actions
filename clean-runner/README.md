@@ -41,7 +41,7 @@ Standard Github-hosted runner are only guaranteed 14GB of SSD storage ([source](
 ```yaml
 - name: Clean Actions Runner
   id: clean_actions_runner
-  uses: ministryofjustice/action-clean-runner@<commit SHA> # <version>
+  uses: ministryofjustice/actions/clean-runner@<commit SHA> # <version>
   with:
     confirm: true
 ```
@@ -51,7 +51,7 @@ To retain a specific piece of software, set its input to `false`, for example:
 ```yaml
 - name: Clean Actions Runner
   id: clean_actions_runner
-  uses: ministryofjustice/action-clean-runner@<commit SHA> # <version>
+  uses: ministryofjustice/actions/clean-runner@<commit SHA> # <version>
   with:
     confirm: true
     remove_opt_hostedtoolcache: false

@@ -22,7 +22,7 @@ This action installs Google's [Container Structure Test](https://github.com/Goog
 ```yaml
 - name: Set Up Container Structure Test
   id: setup_container_structure_test
-  uses: ministryofjustice/action-setup-container-structure-test@<commit SHA> # <version>
+  uses: ministryofjustice/actions/setup-container-structure-test@<commit SHA> # <version>
 
 - name: Run Container Structure Test
   id: run_container_structure_test
@@ -35,7 +35,7 @@ Specifying a version
 ```yaml
 - name: Set Up Container Structure Test
   id: setup_container_structure_test
-  uses: ministryofjustice/action-setup-container-structure-test@<commit SHA> # <version>
+  uses: ministryofjustice/actions/setup-container-structure-test@<commit SHA> # <version>
   with:
     version: v1.17.0
 ```
