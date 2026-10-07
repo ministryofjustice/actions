@@ -1,7 +1,5 @@
 # Set Up Container Structure Test
 
-[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/action-setup-container-structure-test/badge)](https://github-community.service.justice.gov.uk/repository-standards/action-setup-container-structure-test)
-
 This action installs Google's [Container Structure Test](https://github.com/GoogleContainerTools/container-structure-test)
 
 > [!WARNING]

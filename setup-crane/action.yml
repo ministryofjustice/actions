@@ -1,0 +1,63 @@
+---
+name: Set Up crane
+description: This action installs Google's [crane](https://github.com/google/go-containerregistry/tree/main/cmd/crane)
+
+inputs:
+  github-token:
+    description: GitHub token for authentication
+    required: false
+    default: ${{ github.token }}
+  version:
+    description: Version of crane to install
+    required: false
+    default: "latest"
+
+outputs: {}
+
+runs:
+  using: composite
+  steps:
+    - name: Install crane
+      id: install_crane
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+        REPOSITORY: google/go-containerregistry
+        VERSION: ${{ inputs.version }}
+      run: | # zizmor: ignore[github-env] we need to the binary to the path
+        if [[ "$(uname --machine)" == "x86_64" ]]; then
+          export architecture="x86_64"
+        elif [[ "$(uname --machine)" == "aarch64" ]]; then
+          export architecture="arm64"
+        else
+          echo "Unsupported architecture: $(uname --machine)"
+          exit 1
+        fi
+
+        if [[ "${VERSION}" == "latest" ]]; then
+          export version="$(gh release list --repo "${REPOSITORY}" --exclude-drafts --exclude-pre-releases --json "isLatest,tagName" | jq -r '.[] | select(.isLatest == true) | .tagName')"
+        else
+          if [[ "$(gh release list --repo "${REPOSITORY}" --exclude-pre-releases --json tagName | jq -r --arg tag "${VERSION}" '.[].tagName | select(. == $tag)')" != "${VERSION}" ]]; then
+            echo "Invalid version: ${VERSION}"
+            echo "Please check available versions on GitHub: https://github.com/${REPOSITORY}/releases"
+            echo "or use the command: gh release list --repo ${REPOSITORY} --exclude-pre-releases"
+            exit 1
+          else
+            export version="${VERSION}"
+          fi
+        fi
+
+        mkdir --parents "${GITHUB_WORKSPACE}/.crane"
+
+        gh release download \
+          --repo "${REPOSITORY}" \
+          "${version}" \
+          --pattern "go-containerregistry_Linux_${architecture}.tar.gz" \
+          --output "/tmp/go-containerregistry_Linux_${architecture}.tar.gz" \
+          --clobber
+
+        tar --extract --file "/tmp/go-containerregistry_Linux_${architecture}.tar.gz" --directory "${GITHUB_WORKSPACE}/.crane" crane
+
+        chmod +x "${GITHUB_WORKSPACE}/.crane/crane"
+
+        echo "${GITHUB_WORKSPACE}/.crane" >>"${GITHUB_PATH}"
