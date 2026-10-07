@@ -5,7 +5,7 @@ This action frees up space on a GitHub-hosted runner
 > [!CAUTION]
 > The steps performed in this action are destructive, please review before using!
 
-Standard Github-hosted runner are only guaranteed 14GB of SSD storage ([source](https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories)), this action removes bundled software as discussed in [this](https://github.com/actions/runner-images/issues/2840) GitHub issue
+Standard GitHub-hosted runners are only guaranteed 14GB of SSD storage ([source](https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for-public-repositories)), this action removes bundled software as discussed in [this](https://github.com/actions/runner-images/issues/2840) GitHub issue
 
 > [!TIP]
 > This action is useful when working with large container images
