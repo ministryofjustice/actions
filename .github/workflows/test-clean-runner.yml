@@ -1,0 +1,49 @@
+---
+name: Test - Clean Runner
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - clean-runner/**
+
+permissions: {}
+
+jobs:
+  default:
+    name: Default
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Action
+        id: run_action
+        uses: $/clean-runner
+        with:
+          confirm: true
+
+  no-confirm:
+    name: No Confirm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Action
+        id: run_action
+        uses: $/clean-runner
+        continue-on-error: true
+        with:
+          confirm: false

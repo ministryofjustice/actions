@@ -1,19 +1,17 @@
 ---
-name: CodeQL Analysis
-
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      languages:
+        type: string
+        required: false
+        default: '["actions"]'
 
 permissions: {}
 
 jobs:
-  codeql-analysis:
-    name: CodeQL Analysis
+  codeql:
+    name: CodeQL
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -22,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["actions"]
+        language: ${{ fromJson(inputs.languages) }}
     steps:
       - name: Checkout
         id: checkout

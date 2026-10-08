@@ -1,0 +1,40 @@
+---
+name: Test - Setup Crane
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - setup-crane/**
+
+permissions: {}
+
+jobs:
+  test:
+    name: Test (${{ matrix.version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        version:
+          - latest # default
+          - v0.20.6 # specific version
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Action
+        id: run_action
+        uses: $/setup-crane
+        with:
+          version: ${{ matrix.version }}
+
+      - name: Test crane command
+        id: test_crane_command
+        run: |
+          crane version
