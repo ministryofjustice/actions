@@ -25,7 +25,7 @@ jobs:
         with:
           results_file: scorecard.sarif
           results_format: sarif
-          publish_results: true
+          publish_results: ${{ github.event.repository.visibility == 'public' }}
 
       - name: Upload SARIF
         id: upload_sarif
