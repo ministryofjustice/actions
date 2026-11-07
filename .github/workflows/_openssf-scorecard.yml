@@ -14,7 +14,11 @@ jobs:
   openssf-scorecard:
     name: OpenSSF Scorecard
     permissions:
+      actions: read
+      checks: read
       contents: read
       id-token: write
+      issues: read
+      pull-requests: read
       security-events: write
     uses: $/.github/workflows/openssf-scorecard.yml
