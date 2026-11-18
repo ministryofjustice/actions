@@ -1,0 +1,20 @@
+---
+name: Super Linter
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  super-linter:
+    name: Super Linter
+    permissions:
+      contents: read
+      issues: write
+      packages: read
+      pull-requests: write
+      statuses: write
+    uses: $/.github/workflows/super-linter.yml
