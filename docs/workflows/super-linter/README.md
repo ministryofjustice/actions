@@ -26,7 +26,9 @@ jobs:
     name: Super Linter
     permissions:
       contents: read
+      issues: write
       packages: read
+      pull-requests: write
       statuses: write
     uses: ministryofjustice/actions/.github/workflows/super-linter.yml@<commit SHA> # <version>
 ```
