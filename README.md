@@ -4,7 +4,7 @@
 
 This repository contains reusable GitHub Actions resources.
 
-# Actions
+## Reusable Actions
 
 |               Name               |                                  Documentation                                   |                                                   Managed By                                                    |
 | :------------------------------: | :------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: |
@@ -13,7 +13,7 @@ This repository contains reusable GitHub Actions resources.
 |          `setup-crane`           |                    See [setup-crane](./setup-crane/README.md)                    | [@ministryofjustice/developer-experience](https://github.com/orgs/ministryofjustice/teams/developer-experience) |
 |          `super-linter`          |           See [super-linter](./docs/workflows/super-linter/README.md)            | [@ministryofjustice/developer-experience](https://github.com/orgs/ministryofjustice/teams/developer-experience) |
 
-# Workflows
+## Reusable Workflows
 
 |        Name         |                             Documentation                             |                                                                                                  Managed By                                                                                                   |
 | :-----------------: | :-------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
