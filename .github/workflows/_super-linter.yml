@@ -1,0 +1,26 @@
+---
+name: Super Linter
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  super-linter:
+    name: Super Linter
+    permissions:
+      contents: read
+      issues: write
+      packages: read
+      pull-requests: write
+      statuses: write
+    uses: $/.github/workflows/super-linter.yml
+    with:
+      # JSCPD validation is disabled as it's very noisy in this repository
+      super-linter-variables: |
+        {
+          "VALIDATE_JSCPD": false
+        }
