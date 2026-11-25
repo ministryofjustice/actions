@@ -35,9 +35,9 @@ jobs:
 
 ### Configuring Super-Linter Settings
 
-The `super-linter-variables` input passes environment variables through to Super-Linter. The reusable workflow does not set validator defaults, so an empty object (`{}`) uses Super-Linter's defaults.
+The `super-linter-variables` input passes environment variables through to Super-Linter. By default, all supported validators are enabled except Trivy, which is disabled because it is not permitted at MOJ.
 
-Super-Linter supports two ways to select validators: set `VALIDATE_*` variables to `false` to disable specific validators, or set them to `true` to run only the validators explicitly set to `true`. Do not mix `true` and `false` values.
+To disable additional validators, set their `VALIDATE_*` variables to `false`. Do not set validator variables to `true`: Super-Linter does not support mixing `true` and `false` validator settings. Other settings, such as `ENABLE_GITHUB_ACTIONS_STEP_SUMMARY`, can still be configured through this input.
 
 ```yaml
 jobs:
